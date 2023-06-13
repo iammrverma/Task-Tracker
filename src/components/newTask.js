@@ -22,9 +22,10 @@ const NewTask = ({ onNext }) => {
       onNext(nextComponent);
     }
   };
-  const saveTask = (title, description) => {
+  // if id is not provided Generate a unique ID using UUID help in identifieng wheter adding new task of editing old one
+  const saveTask = (title, description, id=uuidv4()) => {
     const newTask = {
-      id: uuidv4(), // Generate a unique ID using UUID
+      id: id, 
       title: title,
       description: description,
     };
@@ -40,7 +41,7 @@ const NewTask = ({ onNext }) => {
       <div className="card" style={{ width: "36rem" }}>
         <div className="card-body">
           <div className="space-between mx-3">
-            <div onClick={() => handleCancelClicked(taskCounter == 0 ? "Empty" : "Task")}><FaTimes size={24} /></div>
+            <div onClick={() => handleCancelClicked(taskCounter === 0 ? "Empty" : "Task")}><FaTimes size={24} /></div>
             <div onClick={() => handleSaveClicked("Task")}><FaCheck size={24} /></div>
           </div>
           <h5 className="card-title m-3" contentEditable="true" style={{ outline: "none" }} id="title">Title</h5>
