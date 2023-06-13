@@ -3,11 +3,15 @@ import { FaCheck, FaAngleDown, FaEdit, FaTrash } from "react-icons/fa";
 
 const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-const Task = ({ taskId, taskTitle, taskDescription}) => {
+const Task = ({ taskId, taskTitle, taskDescription, taskCompleted }) => {
   const [expandedItemId, setExpandedItemId] = useState(null);
 
   const handleEdit = (taskId) => {};
-  const handleDelete = (taskId) => {};
+  const handleDelete = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    localStorage.setItem("taskCounter", JSON.stringify(updatedTasks.length));
+  };
   const handleMarkDone = (taskId) => {};
   const handleAngleDownClick = (taskId) => {
     setExpandedItemId(taskId === expandedItemId ? null : taskId);
@@ -38,9 +42,8 @@ const Task = ({ taskId, taskTitle, taskDescription}) => {
       </h2>
       <div
         id={`collapse${taskId}`}
-        className={`accordion-collapse collapse ${
-          expandedItemId === taskId ? "show" : ""
-        }`}
+        className={`accordion-collapse collapse ${expandedItemId === taskId ? "show" : ""
+          }`}
         aria-labelledby={`heading${taskId}`}
         data-bs-parent="#accordionExample"
       >

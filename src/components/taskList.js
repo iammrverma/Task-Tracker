@@ -12,7 +12,7 @@ const TaskList = ({ onNext }) => {
       <div className="card p-2">
         <div className="accordion" id="accordionExample">
           {tasks.map((task) => (
-            <Task taskId={task.id} taskTitle={task.title} taskDescription={task.description}/>    
+            <Task taskId={task.id} taskTitle={task.title} taskDescription={task.description} taskCompleted={task.completed}/>    
           ))}
         </div>
         <button
