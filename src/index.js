@@ -1,17 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import Task from "./components/task";
+import Empty from "./components/empty";
+import NewTask from "./components/newTask";
+import Navbar from "./components/navbar";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// Get existing appInfo from local storage or create a new object if it doesn't exist
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <>
+  <Navbar/>
+  <div className="container jcc">
+    {tasks.length === 0 ? <Empty /> : <Task />}
+  </div>
+  </>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
