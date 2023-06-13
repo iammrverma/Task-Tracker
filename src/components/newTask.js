@@ -23,9 +23,10 @@ const NewTask = () => {
       window.location.reload();
     }
   };
-  const saveTask = (title, description) => {
+  // if id is not provided Generate a unique ID using UUID help in identifieng wheter adding new task of editing old one
+  const saveTask = (title, description, id=uuidv4()) => {
     const newTask = {
-      id: uuidv4(), // Generate a unique ID using UUID
+      id: id, 
       title: title,
       description: description,
     };
@@ -37,40 +38,19 @@ const NewTask = () => {
   };
   return (
     <div>
-      {!cancelClicked && !savelClicked ? (
-        <div className="card" style={{ width: "36rem" }}>
-          <div className="card-body">
-            <div className="space-between mx-3">
-              <div onClick={handleCancelClicked}>
-                <FaTimes size={24} />
-              </div>
-              <div onClick={handleSaveClicked}>
-                <FaCheck size={24} />
-              </div>
-            </div>
-            <h5
-              className="card-title m-3"
-              contentEditable="true"
-              style={{ outline: "none" }}
-              id="title"
-            >
-              Title
-            </h5>
-            <hr />
-            <p
-              className="m-3"
-              id="description"
-              width="100%"
-              contentEditable="true"
-              style={{ outline: "none" }}
-            >
-              Add details
-            </p>
+      <div className="card" style={{ width: "36rem" }}>
+        <div className="card-body">
+          <div className="space-between mx-3">
+            <div onClick={() => handleCancelClicked(taskCounter == 0 ? "Empty" : "Task")}><FaTimes size={24} /></div>
+            <div onClick={() => handleSaveClicked("Task")}><FaCheck size={24} /></div>
           </div>
+          <h5 className="card-title m-3" contentEditable="true" style={{ outline: "none" }} id="title">Title</h5>
+          <hr />
+          <p className="m-3" id="description" width="100%" contentEditable="true" style={{ outline: "none" }}>
+            Add details
+          </p>
         </div>
-      ) : (
-        <Task />
-      )}
+      </div>
     </div>
   );
 };
