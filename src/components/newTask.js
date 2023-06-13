@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { FaCheck, FaTimes, FaAngleDown } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 
 
