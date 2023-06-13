@@ -17,7 +17,6 @@ const NewTask = ({ onNext }) => {
       !(description.toLowerCase() === "add details" || description.toLowerCase() === "")
     ) {
       saveTask(title, description);
-      window.location.reload();
       onNext(nextComponent);
     }
   };
@@ -27,6 +26,7 @@ const NewTask = ({ onNext }) => {
       id: id, 
       title: title,
       description: description,
+      completed:'false'
     };
     const updatedTasks = [...tasks, newTask];
 
@@ -40,8 +40,8 @@ const NewTask = ({ onNext }) => {
       <div className="card" style={{ width: "36rem" }}>
         <div className="card-body">
           <div className="space-between mx-3">
-            <div onClick={() => handleCancelClicked(taskCounter === 0 ? "Empty" : "Task")}><FaTimes size={24} /></div>
-            <div onClick={() => handleSaveClicked("Task")}><FaCheck size={24} /></div>
+            <div onClick={() => handleCancelClicked(taskCounter === 0 ? "Empty" : "TaskList")}><FaTimes size={24} /></div>
+            <div onClick={() => handleSaveClicked("TaskList")}><FaCheck size={24} /></div>
           </div>
           <h5 className="card-title m-3" contentEditable="true" style={{ outline: "none" }} id="title">Title</h5>
           <hr />

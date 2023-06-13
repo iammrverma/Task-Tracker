@@ -3,19 +3,22 @@ import Empty from "./empty";
 import Navbar from "./navbar";
 import NewTask from "./newTask";
 import Task from "./task";
+import TaskList from "./taskList";
+
 
 const taskCounter = JSON.parse(localStorage.getItem("taskCounter")) || 0;
 
 const Main = () => {
   const [currentComponent, setCurrentComponent] = useState(()=>{
-    return taskCounter === 0? "Empty":"Task";
+    return taskCounter === 0? "Empty":"TaskList";
   });
 
   const componentMap = {
     Empty,
     Navbar,
     NewTask,
-    Task
+    Task,
+    TaskList
   };
 
   const handleNext = (nextComponent) => {
