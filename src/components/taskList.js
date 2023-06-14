@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaCheck, FaAngleDown, FaEdit, FaTrash } from "react-icons/fa";
+import NewTask from "./newTask";
 
 const TaskList = ({ onNext }) => {
   const [tasks, setTasks] = useState([]);
@@ -9,7 +10,10 @@ const TaskList = ({ onNext }) => {
   };
   const [expandedItemId, setExpandedItemId] = useState(null);
 
-  const handleEdit = (taskId) => { };
+  const handleEdit = (task) => {
+    onNext("NewTask", { existingTask: task });
+  };
+  
   const handleDelete = (nextComponent, taskId) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
@@ -51,7 +55,7 @@ const TaskList = ({ onNext }) => {
             >
               <h2 className="accordion-header">
                 <div className="icons-container">
-                  <FaEdit className="icon" onClick={() => handleEdit(task.id)} />
+                  <FaEdit className="icon" onClick={() => handleEdit(task)} />
                   <FaTrash className="icon" onClick={() => handleDelete("Empty", task.id)} />
                   <FaCheck className="icon" onClick={() => handleMarkDone(task.id)} />
                   <FaAngleDown

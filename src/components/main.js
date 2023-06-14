@@ -4,12 +4,11 @@ import Navbar from "./navbar";
 import NewTask from "./newTask";
 import TaskList from "./taskList";
 
-
 const taskCounter = JSON.parse(localStorage.getItem("taskCounter")) || 0;
 
 const Main = () => {
-  const [currentComponent, setCurrentComponent] = useState(()=>{
-    return taskCounter === 0? "Empty":"TaskList";
+  const [currentComponent, setCurrentComponent] = useState(() => {
+    return taskCounter === 0 ? "Empty" : "TaskList";
   });
 
   const componentMap = {
@@ -19,15 +18,18 @@ const Main = () => {
     TaskList
   };
 
-  const handleNext = (nextComponent) => {
+  const handleNext = (nextComponent, props) => {
     setCurrentComponent(nextComponent);
+    setComponentProps(props);
   };
+
+  const [componentProps, setComponentProps] = useState({});
 
   const CurrentComponent = componentMap[currentComponent];
 
   return (
     <div>
-      {CurrentComponent && <CurrentComponent onNext={handleNext}/>}
+      {CurrentComponent && <CurrentComponent onNext={handleNext} {...componentProps} />}
     </div>
   );
 };
