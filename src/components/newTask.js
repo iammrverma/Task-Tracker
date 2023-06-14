@@ -26,7 +26,7 @@ const NewTask = ({ onNext }) => {
       id: id, 
       title: title,
       description: description,
-      completed:'false'
+      completed: false
     };
     const updatedTasks = [...tasks, newTask];
 

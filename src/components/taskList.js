@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaCheck, FaAngleDown, FaEdit, FaTrash } from "react-icons/fa";
 
 const TaskList = ({ onNext }) => {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const [tasks, setTasks] = useState([]);
 
   const handleAddTaskClicked = (nextComponent) => {
     onNext(nextComponent);
@@ -10,27 +10,49 @@ const TaskList = ({ onNext }) => {
   const [expandedItemId, setExpandedItemId] = useState(null);
 
   const handleEdit = (taskId) => { };
-  const handleDelete = (taskId) => {
+  const handleDelete = (nextComponent, taskId) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     localStorage.setItem("taskCounter", JSON.stringify(updatedTasks.length));
-    window.reload();
+    if (updatedTasks.length === 0) onNext(nextComponent);
+    setTasks(updatedTasks);
   };
-  const handleMarkDone = (taskId) => { };
+  const handleMarkDone = (taskId) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          completed: true,
+        };
+      }
+      return task;
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    setTasks(updatedTasks);
+  };
   const handleAngleDownClick = (taskId) => {
     setExpandedItemId(taskId === expandedItemId ? null : taskId);
   };
+
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    setTasks(storedTasks);
+  }, []);
 
   return (
     <div className="p-3" style={{ width: "36rem" }}>
       <div className="card p-2">
         <div className="accordion" id="accordionExample">
           {tasks.map((task) => (
-            <div className="accordion-item my-2" key={task.id}>
+            <div
+              className={`accordion-item my-2 ${task.completed ? "completed" : ""}`}
+              key={task.id}
+            >
               <h2 className="accordion-header">
                 <div className="icons-container">
                   <FaEdit className="icon" onClick={() => handleEdit(task.id)} />
-                  <FaTrash className="icon" onClick={() => handleDelete(task.id)} />
+                  <FaTrash className="icon" onClick={() => handleDelete("Empty", task.id)} />
                   <FaCheck className="icon" onClick={() => handleMarkDone(task.id)} />
                   <FaAngleDown
                     className={`icon ${expandedItemId === task.id ? "active" : ""}`}

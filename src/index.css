@@ -47,6 +47,9 @@
     background-color: lightgray;
     padding: 20px;
 }
+.completed{
+  opacity: 0.5;
+}
  .accordion-header:hover .icons-container {
     opacity: 1;
   }
