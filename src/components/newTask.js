@@ -1,13 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 
 const NewTask = ({ onNext, existingTask }) => {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   const taskCounter = JSON.parse(localStorage.getItem("taskCounter")) || 0;
-  const [title, setTitle] = useState(() => existingTask ? existingTask.title : "Title");
-  const [description, setDescription] = useState(() => existingTask ? existingTask.description : "Description Here");
-  const [id, setId] = useState(() => existingTask ? existingTask.id : uuidv4());
+
+  const [title, setTitle] = useState(existingTask ? existingTask.title : "Title");
+  const [description, setDescription] = useState(existingTask ? existingTask.description : "Description Here");
+  const [id, setId] = useState(existingTask ? existingTask.id : uuidv4());
 
   const handleCancelClicked = (nextComponent) => {
     onNext(nextComponent);
@@ -40,6 +41,7 @@ const NewTask = ({ onNext, existingTask }) => {
       description: description,
       completed: false
     };
+
     const updatedTasks = tasks.filter((task) => task.id !== id);
 
     localStorage.setItem("tasks", JSON.stringify([...updatedTasks, newTask]));
@@ -60,8 +62,12 @@ const NewTask = ({ onNext, existingTask }) => {
       <div className="card" style={{ width: "36rem" }}>
         <div className="card-body">
           <div className="space-between mx-3">
-            <div onClick={() => handleCancelClicked(taskCounter === 0 ? "Empty" : "TaskList")}><FaTimes size={24} /></div>
-            <div onClick={() => handleSaveClicked("TaskList")}><FaCheck size={24} /></div>
+            <div onClick={() => handleCancelClicked(taskCounter === 0 ? "Empty" : "TaskList")}>
+              <FaTimes size={24} />
+            </div>
+            <div onClick={() => handleSaveClicked("TaskList")}>
+              <FaCheck size={24} />
+            </div>
           </div>
           <h5
             className="card-title m-3"
@@ -89,4 +95,5 @@ const NewTask = ({ onNext, existingTask }) => {
     </div>
   );
 };
+
 export default NewTask;

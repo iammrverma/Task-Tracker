@@ -4,23 +4,26 @@ import NewTask from "./newTask";
 
 const TaskList = ({ onNext }) => {
   const [tasks, setTasks] = useState([]);
+  const [expandedItemId, setExpandedItemId] = useState(null);
 
   const handleAddTaskClicked = (nextComponent) => {
     onNext(nextComponent);
   };
-  const [expandedItemId, setExpandedItemId] = useState(null);
 
   const handleEdit = (task) => {
     onNext("NewTask", { existingTask: task });
   };
-  
+
   const handleDelete = (nextComponent, taskId) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     localStorage.setItem("taskCounter", JSON.stringify(updatedTasks.length));
-    if (updatedTasks.length === 0) onNext(nextComponent);
+    if (updatedTasks.length === 0) {
+      onNext(nextComponent);
+    }
     setTasks(updatedTasks);
   };
+
   const handleMarkDone = (taskId) => {
     const updatedTasks = tasks.map((task) => {
       if (task.id === taskId) {
@@ -35,6 +38,7 @@ const TaskList = ({ onNext }) => {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setTasks(updatedTasks);
   };
+
   const handleAngleDownClick = (taskId) => {
     setExpandedItemId(taskId === expandedItemId ? null : taskId);
   };
@@ -76,8 +80,7 @@ const TaskList = ({ onNext }) => {
               </h2>
               <div
                 id={`collapse${task.id}`}
-                className={`accordion-collapse collapse ${expandedItemId === task.id ? "show" : ""
-                  }`}
+                className={`accordion-collapse collapse ${expandedItemId === task.id ? "show" : ""}`}
                 aria-labelledby={`heading${task.id}`}
                 data-bs-parent="#accordionExample"
               >
@@ -86,10 +89,7 @@ const TaskList = ({ onNext }) => {
             </div>
           ))}
         </div>
-        <button
-          className="btn btn-primary"
-          onClick={() => handleAddTaskClicked("NewTask")}
-        >
+        <button className="btn btn-primary" onClick={() => handleAddTaskClicked("NewTask")}>
           New Task
         </button>
       </div>
