@@ -68,19 +68,37 @@ const TaskList = ({ onNext }) => {
           onChange={handleSearchInputChange}
         />
         <div className="accordion" id="accordionExample">
-          {filteredTasks.map((task) => (
-            <Task
-              key={task.id}
-              task={task}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-              handleMarkDone={handleMarkDone}
-              handleAngleDownClick={handleAngleDownClick}
-              expandedItemId={expandedItemId}
-            />
-          ))}
+          {filteredTasks
+            .filter((task) => !task.completed) // Filter incomplete tasks
+            .map((task) => (
+              <Task
+                key={task.id}
+                task={task}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                handleMarkDone={handleMarkDone}
+                handleAngleDownClick={handleAngleDownClick}
+                expandedItemId={expandedItemId}
+              />
+            ))}
+          {filteredTasks
+            .filter((task) => task.completed) // Filter completed tasks
+            .map((task) => (
+              <Task
+                key={task.id}
+                task={task}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                handleMarkDone={handleMarkDone}
+                handleAngleDownClick={handleAngleDownClick}
+                expandedItemId={expandedItemId}
+              />
+            ))}
         </div>
-        <button className="btn btn-primary" onClick={() => handleAddTaskClicked("NewTask")}>
+        <button
+          className="btn btn-primary"
+          onClick={() => handleAddTaskClicked("NewTask")}
+        >
           New Task
         </button>
       </div>
