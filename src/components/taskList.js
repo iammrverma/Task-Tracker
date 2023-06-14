@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Task from "./task";
-import NewTask from "./newTask";
 
 const TaskList = ({ onNext }) => {
   const [tasks, setTasks] = useState([]);
   const [expandedItemId, setExpandedItemId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleAddTaskClicked = (nextComponent) => {
     onNext(nextComponent);
@@ -40,7 +40,11 @@ const TaskList = ({ onNext }) => {
   };
 
   const handleAngleDownClick = (taskId) => {
-    setExpandedItemId((prevExpandedItemId) => (prevExpandedItemId === taskId ? null : taskId));
+    setExpandedItemId((prevId) => (prevId === taskId ? null : taskId));
+  };
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   useEffect(() => {
@@ -48,19 +52,31 @@ const TaskList = ({ onNext }) => {
     setTasks(storedTasks);
   }, []);
 
+  const filteredTasks = tasks.filter((task) => {
+    const taskText = `${task.title} ${task.description}`.toLowerCase();
+    return taskText.includes(searchQuery.toLowerCase());
+  });
+
   return (
     <div className="p-3" style={{ width: "36rem" }}>
       <div className="card p-2">
+        <input
+          type="text"
+          className="form-control mb-3"
+          placeholder="Search tasks"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
         <div className="accordion" id="accordionExample">
-          {tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <Task
               key={task.id}
               task={task}
-              expandedItemId={expandedItemId}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
               handleMarkDone={handleMarkDone}
               handleAngleDownClick={handleAngleDownClick}
+              expandedItemId={expandedItemId}
             />
           ))}
         </div>
