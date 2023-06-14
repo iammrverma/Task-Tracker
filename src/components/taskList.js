@@ -14,7 +14,7 @@ const TaskList = ({ onNext }) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     localStorage.setItem("taskCounter", JSON.stringify(updatedTasks.length));
-    window.relod
+    window.reload();
   };
   const handleMarkDone = (taskId) => { };
   const handleAngleDownClick = (taskId) => {
