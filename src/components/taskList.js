@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaCheck, FaAngleDown, FaEdit, FaTrash } from "react-icons/fa";
+import Task from "./task";
 import NewTask from "./newTask";
 
 const TaskList = ({ onNext }) => {
@@ -40,7 +40,7 @@ const TaskList = ({ onNext }) => {
   };
 
   const handleAngleDownClick = (taskId) => {
-    setExpandedItemId(taskId === expandedItemId ? null : taskId);
+    setExpandedItemId((prevExpandedItemId) => (prevExpandedItemId === taskId ? null : taskId));
   };
 
   useEffect(() => {
@@ -53,40 +53,15 @@ const TaskList = ({ onNext }) => {
       <div className="card p-2">
         <div className="accordion" id="accordionExample">
           {tasks.map((task) => (
-            <div
-              className={`accordion-item my-2 ${task.completed ? "completed" : ""}`}
+            <Task
               key={task.id}
-            >
-              <h2 className="accordion-header">
-                <div className="icons-container">
-                  <FaEdit className="icon" onClick={() => handleEdit(task)} />
-                  <FaTrash className="icon" onClick={() => handleDelete("Empty", task.id)} />
-                  <FaCheck className="icon" onClick={() => handleMarkDone(task.id)} />
-                  <FaAngleDown
-                    className={`icon ${expandedItemId === task.id ? "active" : ""}`}
-                    onClick={() => handleAngleDownClick(task.id)}
-                  />
-                </div>
-                <button
-                  className="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#collapse${task.id}`}
-                  aria-expanded={expandedItemId === task.id ? "true" : "false"}
-                  aria-controls={`collapse${task.id}`}
-                >
-                  {task.title}
-                </button>
-              </h2>
-              <div
-                id={`collapse${task.id}`}
-                className={`accordion-collapse collapse ${expandedItemId === task.id ? "show" : ""}`}
-                aria-labelledby={`heading${task.id}`}
-                data-bs-parent="#accordionExample"
-              >
-                <div className="accordion-body">{task.description}</div>
-              </div>
-            </div>
+              task={task}
+              expandedItemId={expandedItemId}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+              handleMarkDone={handleMarkDone}
+              handleAngleDownClick={handleAngleDownClick}
+            />
           ))}
         </div>
         <button className="btn btn-primary" onClick={() => handleAddTaskClicked("NewTask")}>
