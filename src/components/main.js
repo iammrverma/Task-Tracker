@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Empty from "./empty";
 import Navbar from "./navbar";
 import NewTask from "./newTask";
-import Task from "./task";
 import TaskList from "./taskList";
 
 
@@ -17,7 +16,6 @@ const Main = () => {
     Empty,
     Navbar,
     NewTask,
-    Task,
     TaskList
   };
 
