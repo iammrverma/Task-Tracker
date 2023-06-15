@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
     <Navbar />
-    <div className="container jcc">
+    <div className="container jcc width2">
       <Main />
     </div>
   </>

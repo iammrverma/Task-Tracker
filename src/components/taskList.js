@@ -58,8 +58,8 @@ const TaskList = ({ onNext }) => {
   });
 
   return (
-    <div className="p-3" style={{ width: "36rem" }}>
-      <div className="card p-2">
+    
+      <div className="p-2 width2 tasklist card">
         <input
           type="text"
           className="form-control mb-3"
@@ -102,7 +102,6 @@ const TaskList = ({ onNext }) => {
           New Task
         </button>
       </div>
-    </div>
   );
 };
 

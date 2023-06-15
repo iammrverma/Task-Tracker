@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 36rem;
 }
 
 .space-between {
@@ -60,4 +59,37 @@
 
 .accordion-header:hover .accordion-button {
   opacity: 0.5;
+}
+
+.navbar{
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+.width1{
+  width: 46rem;
+}
+.width2{
+  width: 36rem;
+}
+@media (max-width:320px) {
+  .width1{
+    width: 310px;
+  }
+  .width2{
+    width: 310px;
+  }
+}
+@media (min-width:321px) and (max-width: 767px) {
+  .width1{
+    width: 100vw;
+  }
+  .width2{
+    width: 100vw;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Styles for screens between 992px and 1199px wide (e.g., small laptops) */
+}
+
+@media (min-width: 1200px) {
+  /* Styles for screens 1200px wide and above (e.g., large laptops and desktops) */
 }

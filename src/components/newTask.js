@@ -58,8 +58,7 @@ const NewTask = ({ onNext, existingTask }) => {
   };
 
   return (
-    <div>
-      <div className="card" style={{ width: "36rem" }}>
+      <div className="width2">
         <div className="card-body">
           <div className="space-between mx-3">
             <div onClick={() => handleCancelClicked(taskCounter === 0 ? "Empty" : "TaskList")}>
@@ -92,7 +91,6 @@ const NewTask = ({ onNext, existingTask }) => {
           </p>
         </div>
       </div>
-    </div>
   );
 };
 
