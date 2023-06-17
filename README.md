@@ -1,6 +1,6 @@
-# TaskTrackr
+# TaskTracker
 
-TaskTrackr is a simple and intuitive task manager application built using HTML, CSS, JavaScript, React, and Bootstrap. It allows users to easily add, manage, and track their tasks in a hassle-free manner.
+TaskTracker is a simple and intuitive task manager application built using HTML, CSS, JavaScript, React, and Bootstrap. It allows users to easily add, manage, and track their tasks in a hassle-free manner.
 
 ## Features
 
@@ -13,7 +13,7 @@ TaskTrackr is a simple and intuitive task manager application built using HTML, 
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/your-username/task-trackr.git`
+1. Clone the repository: `git clone https://github.com/iammrverma/task-tracker.git`
 2. Navigate to the project directory: `cd task-trackr`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
